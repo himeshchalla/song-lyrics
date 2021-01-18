@@ -1,0 +1,11 @@
+node_modules
+.DS_STORE
+/node_modules
+/cypress/coverage
+/cypress/integration
+/cypress/fixtures
+/cypress/plugins
+/cypress/support
+/cypress/videos
+/cypress/integration
+/cypress/tests/examples
