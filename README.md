@@ -1,11 +1,11 @@
 #### [wip] song and lyrics
 - This is a fullstack sample/poc for song + lyrics, built with below tech. stack.
-	- `client` : [react],[apollo],[cypress],[webpack],[babel],[bootstrap],[cucumber].
-	- `server` : [graphql],[mongodb],[node.js],[express],[cypress],[cucumber].
-- cypress along with cucumber for BDD experiments.
+	- `client` : [React], [Apollo], [Cypress], [Webpack], [Babel], [Bootstrap], [Cucumber].
+	- `server` : [Graphql], [MongoDB], [Node.js], [Express], [Cypress], [Cucumber].
+- Cypress along with Cucumber for BDD experiments.
 ##### Installation
 Pre-requirements :
-- [node.js] >= 8.10+, [mongodb], [npm] >= 5.6.0 or [yarn]
+- [Node.js] >= 8.10+, [MongoDB], [npm] >= 5.6.0 or [yarn]
 ```sh
 $ npm install
 $ npm run dev (hot reload)
