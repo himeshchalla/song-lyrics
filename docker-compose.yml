@@ -1,0 +1,78 @@
+version: "3.9"
+services:
+  mongo_service:
+    container_name: song_lyrics_mongo
+    image: mongo:4.4
+    restart: always
+    env_file: 
+      - .env
+      - .env.test
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./mongo/init/:/docker-entrypoint-initdb.d"
+      - "./mongo/init:/home/mongodb"
+      - "./data:/data/db"
+    networks:
+      - songlyrics_service_network
+  api_service:
+    container_name: song_lyrics_api
+    image: node:14-buster-slim
+    # restart: always
+    restart: 'no'
+    working_dir: /usr/src/songlyrics_service
+    command: bash -c "npm install && npm run dev"
+    env_file: .env
+    volumes:
+      # Map/Mount current working directory into container's directory
+      - ./api:/usr/src/songlyrics_service/api
+      - ./client:/usr/src/songlyrics_service/client
+      - ./index.js:/usr/src/songlyrics_service/index.js
+      - ./webpack.config.js:/usr/src/songlyrics_service/webpack.config.js
+      - ./.babelrc:/usr/src/songlyrics_service/.babelrc
+      # Map/Mount node_modules from container
+      - ./package.json:/usr/src/songlyrics_service/package.json
+      - ./package-lock.json:/usr/src/songlyrics_service/package-lock.json
+    ports:
+      - 9001:9001
+    depends_on:
+      - mongo_service
+    networks:
+      - songlyrics_service_network
+  nginx_service:
+    container_name: song_lyrics_nginx
+    restart: unless-stopped
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - 9000:9000
+    depends_on:
+      - api_service
+    networks:
+      - songlyrics_service_network
+  api_test_service:
+    container_name: song_lyrics_api_test
+    image: cypress/base:14.17.3
+    # restart: "on-failure"
+    restart: "no"
+    working_dir: /usr/src/songlyrics_service
+    command: bash -c "npm install && npm run cypress:run"
+    env_file: .env.test
+    # environment:
+    #   - CYPRESS_baseUrl=http://nginx_service
+    volumes:
+      - ./cypress:/usr/src/songlyrics_service/cypress
+      - ./cypress.json:/usr/src/songlyrics_service/cypress.json
+      - ./package.json:/usr/src/songlyrics_service/package.json
+      - ./package-lock.json:/usr/src/songlyrics_service/package-lock.json
+    # ports:
+    #   - 9002:9002
+      # - 9222:9222
+    depends_on:
+      - nginx_service
+    networks:
+      - songlyrics_service_network
+networks:
+  songlyrics_service_network:
+    driver: bridge
