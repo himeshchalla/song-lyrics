@@ -1,4 +1,3 @@
-const config = require('../config');
 const express = require('express');
 const models = require('./models');
 const expressGraphQL = require('express-graphql');
@@ -8,9 +7,10 @@ const schema = require('./schema/schema');
 
 const app = express();
 
-const MONGO_URI = config.server.mongodb_connection;
+// const MONGO_URI = 'mongodb://songLyricsUser:songLyricsUser@localhost:27017/songLyricsService';
+const MONGO_URI = process.env.MONGODB_URI;
 if (!MONGO_URI) {
-  throw new Error('You must provide a MongoLab URI');
+  throw new Error('You must provide a Mongo URI');
 }
 
 mongoose.Promise = global.Promise;
