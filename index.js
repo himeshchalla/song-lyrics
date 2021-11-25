@@ -1,6 +1,6 @@
-const app = require('./server/server');
-const config = require('./config');
+const app = require('./api/server');
+const port = process.env.PORT;
 
-app.listen(config.server.port, () => {
-  console.log('Listening on port :'+config.server.port);
+app.listen(port, () => {
+  console.log('Listening on port :'+port);
 });
