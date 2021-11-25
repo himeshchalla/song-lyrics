@@ -1,5 +1,5 @@
 {
-    "baseUrl": "http://localhost:9000",
+    "baseUrl": "http://song_lyrics_nginx:9000",
     "projectId": "WIP_fullstack_CRUD_poc_1_test",
     "viewportHeight": 1000,
     "viewportWidth": 1280,
