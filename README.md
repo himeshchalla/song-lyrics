@@ -1,6 +1,6 @@
 #### [wip] song and lyrics
 - This is a fullstack sample/poc for song + lyrics, built with below tech. stack.
-	- `client` : [React], [Apollo], [Cypress], [Webpack], [Babel], [Bootstrap], [Cucumber].
+	- `client` : [React], [Apollo], [Typescript], [Cypress], [Webpack], [Babel], [Bootstrap], [Cucumber].
 	- `server` : [Graphql], [MongoDB], [Node.js], [Typescript], [Express], [Cypress], [Cucumber].
 	- `other tools` : [nginx], [Docker]
 
